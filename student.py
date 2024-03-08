@@ -29,31 +29,33 @@ class Student:
             name (str): The name of the student.
             student_id (int): The unique ID of the student.
         """
+        self.name = name
+        self.student_id = student_id
+        self.enrolled_courses = []
+        self.grades = {}
         pass
-
 
     def enroll_course(self, course):
         """
         Enrolls the student in a course if prerequisites are met.
-
         Args:
             course (Course): The course object to be enrolled in.
-
         Returns:
             None
         """
+        # Add the course to the student's list of enrolled courses
+        self.enrolled_courses.append(course)
         pass
 
     def drop_course(self, course):
         """
         Drops a course from the student's enrollment.
-
         Args:
             course (Course): The course object to be dropped.
-
         Returns:
             None
         """
+        self.enrolled_courses.remove(course)
         pass
 
 
@@ -69,4 +71,11 @@ class Student:
         Returns:
             None
         """
+        # Check that the student is actually in this
+        # course before submitting a grade.
+        if course in self.enrolled_courses:
+            if course in self.grades:
+                self.grades[course][assessment] = grade
+            else:
+                self.grades[course] = {assessment: grade}
         pass
