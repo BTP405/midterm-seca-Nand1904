@@ -22,40 +22,62 @@ class Course:
             sections (int, optional): The number of sections available for the course (default is 1).
             prerequisites (list, optional): List of prerequisite courses for the course (default is None).
         """
+        self.course_name = course_name;
+        self.instructor = instructor;
+        self.sections = sections;
+        self.prerequisites = prerequisites;
+        self.enrolled_students = [];
+        self.waitlisted_students = [];
+        self.assessments = [];
         pass
 
 
     def add_student(self, student):
         """Enroll a student in the course or add them to the waitlist if all sections are full.
-
         Args:
             student (Student): The student object to be enrolled or added to the waitlist.
         """
+        # If there's space left in any
+        # section, add the student to the course.
+        if len(self.enrolled_students) < self.sections:
+            self.enrolled_students.append(student);
+        else:
+            # If there's no space left, add the student to the waitlist.
+            self.waitlisted_students.append(student);
         pass
 
 
     def remove_student(self, student):
         """Remove a student from the course or the waitlist.
-
         Args:
             student (Student): The student object to be removed from the course or waitlist.
         """
+        # Check both lists and remove the student if
+        # they are found in either one.
+        if student in self.enrolled_students:
+            self.enrolled_students.remove(student);
+        elif student in self.waitlisted_students:
+            self.waitlisted_students.remove(student);
+        # Move the first person on the waitlist
+        # to the enrolled_students list.
+        if len(self.waitlisted_students) > 0:
+            self.enrolled_students.append(self.waitlisted_students.pop(0));
         pass
 
 
     def add_instructor(self, instructor):
         """Assign an instructor to the course.
-
         Args:
             instructor (str): The name of the instructor to be assigned to the course.
         """
+        self.instructor = instructor;
         pass
 
     def add_assessment(self, assessment):
         """Add an assessment to the course.
-
         Args:
             assessment (str): The description of the assessment to be added.
         """
+        self.assessments.append(assessment)
         pass
 
