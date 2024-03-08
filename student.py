@@ -62,11 +62,20 @@ class Student:
     def submit_grade(self, course, assessment, grade):
         """
         Submits a grade for a student in a course.
+
         Args:
             course (Course): The course object.
             assessment (str): The assessment name.
             grade (float): The grade for the assessment.
+
         Returns:
             None
         """
+        # Check that the student is actually in this
+        # course before submitting a grade.
+        if course in self.enrolled_courses:
+            if course in self.grades:
+                self.grades[course][assessment] = grade
+            else:
+                self.grades[course] = {assessment: grade}
         pass
